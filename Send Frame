@@ -1,0 +1,36 @@
+/*@!Encoding:936*/
+
+variables
+{
+  message 0x6F1 MSG_01 = {dlc = 8,byte(0)=0x3E,byte(1)=0x05,byte(2)=0x2E,byte(3)=0x41,byte(4)=0xEA,byte(5)=0x01,byte(6)=0x01};
+  message 0x6F1 MSG_02 = {dlc = 8,byte(0)=0x3E,byte(1)=0x05,byte(2)=0x2E,byte(3)=0x41,byte(4)=0xEA,byte(5)=0x00,byte(6)=0x00};
+}
+
+
+void MainTest ()
+{
+  MSG_01.can=1;
+  MSG_02.can=1;  //Change Transmission channel CAN1 or CAN2
+  
+
+  MSG_01.BRS=1;
+  MSG_01.FDF=1;
+  MSG_02.BRS=1;
+  MSG_02.FDF=1;
+  
+  TestGroupBegin("Send 0x6F1 Frame","start");  // start of test group
+  write("Send Frame begain...............");
+  
+  output(MSG_01);
+  write("Send Frame:%x %x %x %x %x %x %x %x",MSG_01.byte(0),MSG_01.byte(1),MSG_01.byte(2),MSG_01.byte(3),MSG_01.byte(4),MSG_01.byte(5),MSG_01.byte(6),MSG_01.byte(7));
+  
+  testWaitForTimeout(100); //wait 100ms
+  write("Wait 100ms");
+  
+  output(MSG_02);
+  write("Send Frame:%x %x %x %x %x %x %x %x",MSG_02.byte(0),MSG_02.byte(1),MSG_02.byte(2),MSG_02.byte(3),MSG_02.byte(4),MSG_02.byte(5),MSG_02.byte(6),MSG_02.byte(7));
+  write("Send Frame finish!");
+  
+  testWaitForTimeout(100);
+  TestGroupEnd();                      // end of test group
+}
