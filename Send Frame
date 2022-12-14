@@ -12,7 +12,7 @@ void MainTest ()
   MSG_01.can=1;
   MSG_02.can=1;  //Change Transmission channel CAN1 or CAN2
   
-
+  //Send CAN FD Frame
   MSG_01.BRS=1;
   MSG_01.FDF=1;
   MSG_02.BRS=1;
